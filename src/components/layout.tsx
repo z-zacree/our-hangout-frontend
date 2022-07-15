@@ -1,4 +1,18 @@
-import { Box, Button, ButtonGroup, HStack, IconButton, Image, Menu, MenuButton, MenuItem, MenuList, Spacer, useColorMode } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    ButtonGroup,
+    HStack,
+    IconButton,
+    Image,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Spacer,
+    useColorMode,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { IoMenu, IoSunny, IoMoon } from "react-icons/io5";
 import { useLocation, Link, Outlet } from "react-router-dom";
@@ -22,8 +36,10 @@ const pages: NavbarItems[] = [
 const Navbar = () => {
     const location = useLocation();
     const { colorMode, toggleColorMode } = useColorMode();
-    const [currentPath, setCurrentPath] = useState(location.pathname.split("/")[location.pathname.split("/").length - 1]);
-    const navBg = colorMode === "light" ? "hsl(0, 0%, 100%)" : "hsl(0, 0%, 10%)";
+    const [currentPath, setCurrentPath] = useState(
+        location.pathname.split("/")[location.pathname.split("/").length - 1]
+    );
+    const navBg = useColorModeValue("white", "hsl(0, 0%, 10%)");
 
     useEffect(() => {
         setCurrentPath(location.pathname.split("/")[location.pathname.split("/").length - 1]);
@@ -53,7 +69,13 @@ const Navbar = () => {
                     </Menu>
                 </Box>
                 <Link to="/">
-                    <Image src="/logo.svg" w="5em" filter={colorMode === "light" ? "none" : "invert(100%)"} mr="6 !important" cursor="pointer" />
+                    <Image
+                        src="/logo.svg"
+                        w="5em"
+                        filter={colorMode === "light" ? "none" : "invert(100%)"}
+                        mr="6 !important"
+                        cursor="pointer"
+                    />
                 </Link>
                 <Spacer display={{ base: "block", lg: "none" }} />
                 <HStack display={{ base: "none", lg: "block" }} spacing={5}>
@@ -80,21 +102,17 @@ const Navbar = () => {
                 <IconButton
                     display={{ base: "none", lg: "flex" }}
                     aria-label="color-mode-toggle"
-                    icon={colorMode === "light" ? <IoMoon /> : <IoSunny />}
+                    icon={useColorModeValue(<IoMoon />, <IoSunny />)}
                     colorScheme="gray"
                     variant="ghost"
-                    color={
-                        currentPath === "" || currentPath === "about"
-                            ? colorMode === "light"
-                                ? "hsla(0, 0%, 0%, 0.75)"
-                                : "hsla(0, 0%, 100%, 0.75)"
-                            : "hsla(0, 0%, 0%, 0.75)"
-                    }
+                    color={useColorModeValue("black", "white")}
                     fontSize="xl"
                     onClick={toggleColorMode}
                 />
             </HStack>
-            <Outlet />
+            <Box w="100vw" minH="calc(100vh - 61px)" p={4}>
+                <Outlet />
+            </Box>
         </Box>
     );
 };

@@ -3,16 +3,13 @@ import { ChakraProvider, extendTheme, type ThemeConfig } from "@chakra-ui/react"
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Global, css } from "@emotion/react";
 
 import App from "./App";
 
 const theme: ThemeConfig = extendTheme({
     initialColorMode: "light",
     useSystemColorMode: false,
-    colors: {
-        iit_blue: "hsl(207, 100%, 54%)",
-        itsig_blue: "hsl(221, 55%, 63%)",
-    },
     fonts: {
         heading: '"nunito", sans-serif',
         body: '"nunito", sans-serif',
@@ -29,9 +26,22 @@ const theme: ThemeConfig = extendTheme({
     },
 });
 
+const globalTheme = css(
+    `::-webkit-scrollbar {
+        display: none;
+    
+    * {
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }`
+);
+
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
         <ChakraProvider theme={theme}>
+            <Global styles={globalTheme} />
             <BrowserRouter>
                 <App />
             </BrowserRouter>

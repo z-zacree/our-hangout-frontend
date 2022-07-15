@@ -2,17 +2,23 @@ import useSWR from "swr";
 import axios from "axios";
 import { Post } from "../models/post";
 
-export const getPosts = async (): Promise<Post[]> => {
-    return await axios.get("http://localhost:8000/api/posts").then((res) => res.data as Post[]);
-};
-
-const getfetcher = (url: string) => axios.get(url).then((res) => res.data);
+const getfetcher = (url: string) => axios.get(`http://localhost:8000/api/${url}`).then((res) => res.data as Post[]);
 
 export function useGetAllPosts() {
-    const { data, error } = useSWR(`/api/posts`, getfetcher);
+    const { data, error } = useSWR(`posts`, getfetcher);
 
     return {
-        restaurants: data,
+        posts: data,
+        isLoading: !error && !data,
+        isError: error,
+    };
+}
+
+export function useGetPostsByCategory(category: string) {
+    const { data, error } = useSWR(`category/${category}`, getfetcher);
+
+    return {
+        posts: data,
         isLoading: !error && !data,
         isError: error,
     };

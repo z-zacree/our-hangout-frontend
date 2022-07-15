@@ -1,5 +1,17 @@
-import { Container, SimpleGrid, Image, Flex, Heading, Text, Stack, StackDivider, Icon, useColorModeValue } from "@chakra-ui/react";
-import { IoAnalyticsSharp, IoLogoBitcoin, IoSearchSharp } from "react-icons/io5";
+import {
+    Container,
+    SimpleGrid,
+    Image,
+    Flex,
+    Heading,
+    Text,
+    Stack,
+    StackDivider,
+    Icon,
+    useColorModeValue,
+    Box,
+} from "@chakra-ui/react";
+import { IoBicycle, IoPeople, IoSearchSharp } from "react-icons/io5";
 import { ReactElement } from "react";
 
 interface FeatureProps {
@@ -21,7 +33,7 @@ const Feature = ({ text, icon, iconBg }: FeatureProps) => {
 
 const SplitWithImage = () => {
     return (
-        <Container maxW={"5xl"} py={12}>
+        <Box maxW="5xl">
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                 <Stack spacing={4}>
                     <Text
@@ -38,28 +50,55 @@ const SplitWithImage = () => {
                     </Text>
                     <Heading>Our Hangout</Heading>
                     <Text color={"gray.500"} fontSize={"lg"}>
-                        It's become more and more unlikely for people to find a new place to explore in Singapore as we are all busy with school,
-                        work, etc...
+                        It's become more and more unlikely for people to find a new place to explore
+                        in Singapore as we are all busy with school, work, etc...
                         <br />
                         <br />
-                        With this Blog website, we can share about our favourite places to hang out with friends or alone. This will give
-                        opportunities not only for anyone to find new places to visit, but also for companies to grow
+                        With this Blog website, we can share about our favourite places to hang out
+                        with friends or alone. This will give opportunities not only for anyone to
+                        find new places to visit, but also for companies to grow
                     </Text>
-                    <Stack spacing={4} divider={<StackDivider borderColor={useColorModeValue("gray.900", "gray.700")} />}>
+                    <Stack
+                        spacing={4}
+                        divider={
+                            <StackDivider borderColor={useColorModeValue("gray.900", "gray.700")} />
+                        }
+                    >
                         <Feature
-                            icon={<Icon as={IoAnalyticsSharp} color={"yellow.500"} w={5} h={5} />}
-                            iconBg={useColorModeValue("yellow.200", "yellow.900")}
-                            text={"Business Planning"}
+                            icon={
+                                <Icon
+                                    as={IoSearchSharp}
+                                    color={useColorModeValue("purple.500", "purple.600")}
+                                    w={5}
+                                    h={5}
+                                />
+                            }
+                            iconBg={useColorModeValue("purple.200", "purple.300")}
+                            text={"Discovery"}
                         />
                         <Feature
-                            icon={<Icon as={IoLogoBitcoin} color={"green.500"} w={5} h={5} />}
-                            iconBg={useColorModeValue("green.200", "green.900")}
-                            text={"Financial Planning"}
+                            icon={
+                                <Icon
+                                    as={IoPeople}
+                                    color={useColorModeValue("green.500", "green.600")}
+                                    w={5}
+                                    h={5}
+                                />
+                            }
+                            iconBg={useColorModeValue("green.200", "green.300")}
+                            text={"Outings"}
                         />
                         <Feature
-                            icon={<Icon as={IoSearchSharp} color={"purple.500"} w={5} h={5} />}
-                            iconBg={useColorModeValue("purple.200", "purple.900")}
-                            text={"Market Analysis"}
+                            icon={
+                                <Icon
+                                    as={IoBicycle}
+                                    color={useColorModeValue("yellow.500", "yellow.600")}
+                                    w={5}
+                                    h={5}
+                                />
+                            }
+                            iconBg={useColorModeValue("yellow.200", "yellow.300")}
+                            text={"Activities"}
                         />
                     </Stack>
                 </Stack>
@@ -74,7 +113,7 @@ const SplitWithImage = () => {
                     />
                 </Flex>
             </SimpleGrid>
-        </Container>
+        </Box>
     );
 };
 
