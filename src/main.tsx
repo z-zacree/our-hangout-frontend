@@ -1,5 +1,10 @@
 import { StrictMode } from "react";
-import { ChakraProvider, extendTheme, type ThemeConfig } from "@chakra-ui/react";
+import {
+    ChakraProvider,
+    ComponentStyleConfig,
+    extendTheme,
+    type ThemeConfig,
+} from "@chakra-ui/react";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -7,12 +12,21 @@ import { Global, css } from "@emotion/react";
 
 import App from "./App";
 
+const Text: ComponentStyleConfig = {
+    baseStyle: (props) => ({
+        color: mode("black", "white")(props),
+    }),
+};
+
 const theme: ThemeConfig = extendTheme({
     initialColorMode: "light",
     useSystemColorMode: false,
     fonts: {
         heading: '"nunito", sans-serif',
         body: '"nunito", sans-serif',
+    },
+    components: {
+        Text,
     },
     styles: {
         global: (props: StyleFunctionProps) => ({

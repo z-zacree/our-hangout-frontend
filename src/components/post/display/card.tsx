@@ -47,7 +47,7 @@ const PostCard: FC<{ post: Post }> = ({ post }) => {
                             variant="outline"
                             key={index}
                         >
-                            <Text fontSize="sm" fontWeight="bold" color="grey.800">
+                            <Text fontSize="sm" fontWeight="bold" color="gray.500">
                                 {name}
                             </Text>
                         </Button>

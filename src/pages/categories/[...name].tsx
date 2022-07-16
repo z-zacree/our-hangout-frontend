@@ -10,7 +10,7 @@ import {
     useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGetPostsByCategory } from "../../api/post_api";
 import PostCard from "../../components/post/display/card";
 import SkeletonCard from "../../components/post/display/card_skeleton";
@@ -19,11 +19,9 @@ import { Post } from "../../models/post";
 
 const Category = () => {
     const [sort, setSort] = useState(Sort.Latest);
-    const location = useLocation();
+    const { name } = useParams();
 
-    const currentPath = location.pathname.split("/")[location.pathname.split("/").length - 1];
-
-    const { posts } = useGetPostsByCategory(currentPath);
+    const { posts } = useGetPostsByCategory(name!);
 
     const sortPosts = (a: Post, b: Post) => {
         switch (sort) {
@@ -49,6 +47,8 @@ const Category = () => {
             mx="auto"
         >
             <GridItem
+                position="sticky"
+                alignSelf="flex-start"
                 maxW="xs"
                 display={{ base: "none", md: "block" }}
                 bg="blue.500"
@@ -100,6 +100,8 @@ const Category = () => {
                 </Stack>
             </GridItem>
             <GridItem
+                position="sticky"
+                alignSelf="flex-start"
                 maxW="xl"
                 display={{ base: "none", xl: "block" }}
                 bg="blue.500"

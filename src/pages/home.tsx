@@ -32,122 +32,50 @@ const HomePage = () => {
     };
 
     return (
-        <Grid
-            maxW="7xl"
-            h="100%"
-            templateColumns={{
-                base: "2fr",
-                md: "240px 2fr",
-                xl: "240px 2fr 1fr",
-            }}
-            gap={4}
-            mx="auto"
-        >
-            <GridItem
-                maxW="xs"
-                display={{ base: "none", md: "block" }}
-                bg="blue.500"
-                borderRadius={12}
-            >
-                <Box p={8}>Left Sidebar</Box>
-            </GridItem>
-            <GridItem w="100%">
-                <HStack>
-                    <ButtonGroup variant="ghost" colorScheme="purple">
-                        <Button
-                            color={useColorModeValue("black", "white")}
-                            onClick={() => setSort(Sort.Latest)}
+        <>
+            <HStack>
+                <ButtonGroup variant="ghost" colorScheme="purple">
+                    <Button
+                        color={useColorModeValue("black", "white")}
+                        onClick={() => setSort(Sort.Latest)}
+                    >
+                        <Text
+                            fontWeight={sort === Sort.Latest ? "bold" : "normal"}
+                            textDecoration={sort === Sort.Latest ? "underline" : "normal"}
                         >
-                            <Text
-                                fontWeight={sort === Sort.Latest ? "bold" : "normal"}
-                                textDecoration={sort === Sort.Latest ? "underline" : "normal"}
-                            >
-                                Latest
-                            </Text>
-                        </Button>
-                        <Button
-                            color={useColorModeValue("black", "white")}
-                            onClick={() => setSort(Sort.Views)}
+                            Latest
+                        </Text>
+                    </Button>
+                    <Button
+                        color={useColorModeValue("black", "white")}
+                        onClick={() => setSort(Sort.Views)}
+                    >
+                        <Text
+                            fontWeight={sort === Sort.Views ? "bold" : "normal"}
+                            textDecoration={sort === Sort.Views ? "underline" : "normal"}
                         >
-                            <Text
-                                fontWeight={sort === Sort.Views ? "bold" : "normal"}
-                                textDecoration={sort === Sort.Views ? "underline" : "normal"}
-                            >
-                                Most Viewed
-                            </Text>
-                        </Button>
-                        <Button
-                            color={useColorModeValue("black", "white")}
-                            onClick={() => setSort(Sort.Saves)}
+                            Most Viewed
+                        </Text>
+                    </Button>
+                    <Button
+                        color={useColorModeValue("black", "white")}
+                        onClick={() => setSort(Sort.Saves)}
+                    >
+                        <Text
+                            fontWeight={sort === Sort.Saves ? "bold" : "normal"}
+                            textDecoration={sort === Sort.Saves ? "underline" : "normal"}
                         >
-                            <Text
-                                fontWeight={sort === Sort.Saves ? "bold" : "normal"}
-                                textDecoration={sort === Sort.Saves ? "underline" : "normal"}
-                            >
-                                Most Saved
-                            </Text>
-                        </Button>
-                    </ButtonGroup>
-                </HStack>
-                <Stack gap={1} mt={{ base: 2, md: 4 }}>
-                    {posts?.sort(sortPosts).map((post) => <PostCard post={post} key={post.id} />) ??
-                        [...Array(10).keys()].map((number) => <SkeletonCard key={number} />)}
-                </Stack>
-            </GridItem>
-            <GridItem
-                maxW="xl"
-                display={{ base: "none", xl: "block" }}
-                bg="blue.500"
-                borderRadius={12}
-            >
-                <Box p={8}>Right Sidebar</Box>
-            </GridItem>
-        </Grid>
+                            Most Saved
+                        </Text>
+                    </Button>
+                </ButtonGroup>
+            </HStack>
+            <Stack gap={1} mt={{ base: 2, md: 4 }}>
+                {posts?.sort(sortPosts).map((post) => <PostCard post={post} key={post.id} />) ??
+                    [...Array(10).keys()].map((number) => <SkeletonCard key={number} />)}
+            </Stack>
+        </>
     );
 };
 
 export default HomePage;
-
-// <Stack>
-//     <HStack>
-//         <ButtonGroup variant="ghost" colorScheme="purple">
-//             <Button
-//                 color={useColorModeValue("black", "white")}
-//                 onClick={() => setSort(Sort.Latest)}
-//             >
-//                 <Text
-//                     fontWeight={sort === Sort.Latest ? "bold" : "normal"}
-//                     textDecoration={sort === Sort.Latest ? "underline" : "normal"}
-//                 >
-//                     Latest
-//                 </Text>
-//             </Button>
-//             <Button
-//                 color={useColorModeValue("black", "white")}
-//                 onClick={() => setSort(Sort.Views)}
-//             >
-//                 <Text
-//                     fontWeight={sort === Sort.Views ? "bold" : "normal"}
-//                     textDecoration={sort === Sort.Views ? "underline" : "normal"}
-//                 >
-//                     Most Viewed
-//                 </Text>
-//             </Button>
-//             <Button
-//                 color={useColorModeValue("black", "white")}
-//                 onClick={() => setSort(Sort.Saves)}
-//             >
-//                 <Text
-//                     fontWeight={sort === Sort.Saves ? "bold" : "normal"}
-//                     textDecoration={sort === Sort.Saves ? "underline" : "normal"}
-//                 >
-//                     Most Saved
-//                 </Text>
-//             </Button>
-//         </ButtonGroup>
-//     </HStack>
-//     <Stack gap={2}>
-//         {posts?.map((post) => <PostCard post={post} key={post.id} />) ??
-//             [...Array(10).keys()].map((number) => <SkeletonCard key={number} />)}
-//     </Stack>
-// </Stack>;

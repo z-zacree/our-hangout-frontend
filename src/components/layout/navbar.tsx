@@ -13,7 +13,7 @@ import {
     useColorMode,
     useColorModeValue,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { IoMenu, IoSunny, IoMoon } from "react-icons/io5";
 import { useLocation, Link, Outlet } from "react-router-dom";
 
@@ -33,7 +33,7 @@ const pages: NavbarItems[] = [
     },
 ];
 
-const Navbar = () => {
+const Navbar: FC<PropsWithChildren<{ isOutlet: boolean }>> = ({ children, isOutlet }) => {
     const location = useLocation();
     const { colorMode, toggleColorMode } = useColorMode();
     const [currentPath, setCurrentPath] = useState(
@@ -46,7 +46,7 @@ const Navbar = () => {
     }, [location]);
 
     return (
-        <Box h="100%" w="100%">
+        <Box position="relative">
             <HStack bgColor={navBg} p={2} as={"header"}>
                 <Box display={{ base: "block", lg: "none" }}>
                     <Menu preventOverflow matchWidth flip gutter={2} autoSelect={false}>
@@ -84,7 +84,6 @@ const Navbar = () => {
                             <Button
                                 fontWeight={currentPath === page.pageUrl ? "semibold" : "normal"}
                                 fontSize="xl"
-                                color={colorMode === "light" ? "black" : "white"}
                                 variant="ghost"
                             >
                                 {page.pageTitle}
@@ -110,9 +109,7 @@ const Navbar = () => {
                     onClick={toggleColorMode}
                 />
             </HStack>
-            <Box w="100vw" minH="calc(100vh - 61px)" p={4}>
-                <Outlet />
-            </Box>
+            {isOutlet ? <Outlet /> : children}
         </Box>
     );
 };

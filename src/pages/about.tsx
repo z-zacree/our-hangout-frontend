@@ -33,7 +33,7 @@ const Feature = ({ text, icon, iconBg }: FeatureProps) => {
 
 const SplitWithImage = () => {
     return (
-        <Box maxW="5xl">
+        <Box maxW="5xl" mx="auto" p={4}>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                 <Stack spacing={4}>
                     <Text
