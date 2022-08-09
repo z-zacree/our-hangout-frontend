@@ -1,7 +1,8 @@
 import { Box, Center, Text, useColorMode } from "@chakra-ui/react";
+import { FC } from "react";
 
-export default () => {
-    const { colorMode, toggleColorMode } = useColorMode();
+const NotFound: FC = () => {
+    const { colorMode } = useColorMode();
     return (
         <Center h="100vh">
             <Text fontSize="xl" fontWeight="bold">
@@ -12,3 +13,5 @@ export default () => {
         </Center>
     );
 };
+
+export default NotFound;

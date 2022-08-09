@@ -1,18 +1,18 @@
 import {
-    Container,
-    SimpleGrid,
-    Image,
+    Box,
     Flex,
     Heading,
-    Text,
+    Icon,
+    Image,
+    SimpleGrid,
     Stack,
     StackDivider,
-    Icon,
+    Text,
     useColorModeValue,
-    Box,
 } from "@chakra-ui/react";
-import { IoBicycle, IoPeople, IoSearchSharp } from "react-icons/io5";
+import { FC } from "react";
 import { ReactElement } from "react";
+import { IoBicycle, IoPeople, IoSearchSharp } from "react-icons/io5";
 
 interface FeatureProps {
     text: string;
@@ -31,7 +31,7 @@ const Feature = ({ text, icon, iconBg }: FeatureProps) => {
     );
 };
 
-const SplitWithImage = () => {
+const About: FC = () => {
     return (
         <Box maxW="5xl" mx="auto" p={4}>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
@@ -117,4 +117,4 @@ const SplitWithImage = () => {
     );
 };
 
-export default SplitWithImage;
+export default About;

@@ -12,8 +12,8 @@ import {
 import { FC } from "react";
 import { IoEye, IoBookmark } from "react-icons/io5";
 import { Link as DomLink } from "react-router-dom";
-import { Post } from "../../../models/post";
-import { fDate } from "../../../utils/date";
+import { Post } from "@/models/post";
+import { fDate } from "@/utils/date";
 
 const PostCard: FC<{ post: Post }> = ({ post }) => {
     const { colorMode } = useColorMode();
@@ -72,7 +72,7 @@ const PostCard: FC<{ post: Post }> = ({ post }) => {
                 </Flex>
                 <Flex ml={10} align="center">
                     <Text mr={1} fontSize="sm">
-                        <b>{post.bookmarked_by}</b>
+                        <b>{post.bookmarks}</b>
                     </Text>
                     <Box as={IoBookmark} color="green.500" />
                 </Flex>

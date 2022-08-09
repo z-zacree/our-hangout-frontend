@@ -1,24 +1,17 @@
-import {
-    Box,
-    Button,
-    ButtonGroup,
-    Grid,
-    GridItem,
-    HStack,
-    Stack,
-    Text,
-    useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, ButtonGroup, Text, HStack, Stack, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
-import { useGetAllPosts } from "../api/post_api";
-import PostCard from "../components/post/display/card";
-import SkeletonCard from "../components/post/display/card_skeleton";
-import { Sort } from "../models/enum";
-import { Post } from "../models/post";
+import { useParams } from "react-router-dom";
+import { useGetPostsByCategory } from "@/hooks/post";
+import { Sort, Post } from "@/models";
+import { PostCard, SkeletonCard } from "@/components";
+import Layout from "./layout";
+import { FC } from "react";
 
-const HomePage = () => {
+const Category: FC = () => {
     const [sort, setSort] = useState(Sort.Latest);
-    const { posts } = useGetAllPosts();
+    const { name } = useParams();
+
+    const { posts } = useGetPostsByCategory(name!);
 
     const sortPosts = (a: Post, b: Post) => {
         switch (sort) {
@@ -27,13 +20,13 @@ const HomePage = () => {
             case Sort.Views:
                 return b.views - a.views;
             case Sort.Saves:
-                return b.bookmarked_by - a.bookmarked_by;
+                return b.bookmarks - a.bookmarks;
         }
     };
 
     return (
-        <>
-            <HStack>
+        <Layout>
+            <HStack my={4}>
                 <ButtonGroup variant="ghost" colorScheme="purple">
                     <Button
                         color={useColorModeValue("black", "white")}
@@ -70,12 +63,12 @@ const HomePage = () => {
                     </Button>
                 </ButtonGroup>
             </HStack>
-            <Stack gap={1} mt={{ base: 2, md: 4 }}>
+            <Stack gap={1}>
                 {posts?.sort(sortPosts).map((post) => <PostCard post={post} key={post.id} />) ??
                     [...Array(10).keys()].map((number) => <SkeletonCard key={number} />)}
             </Stack>
-        </>
+        </Layout>
     );
 };
 
-export default HomePage;
+export default Category;

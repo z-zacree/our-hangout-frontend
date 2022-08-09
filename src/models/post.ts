@@ -1,3 +1,5 @@
+import { PostType } from "./enums";
+
 export interface Post {
     id: number;
     title: string;
@@ -5,15 +7,8 @@ export interface Post {
     author: string;
     type: keyof typeof PostType;
     views: number;
-    bookmarked_by: number;
+    bookmarks: number;
     categories: string[];
     created_at: Date;
     updated_at: Date;
-}
-
-enum PostType {
-    Blog = "BLOG",
-    Advice = "ADVICE",
-    Complaint = "COMPLAINT",
-    Request = "REQUEST",
 }

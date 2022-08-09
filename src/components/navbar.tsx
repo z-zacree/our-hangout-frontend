@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { IoMenu, IoSunny, IoMoon } from "react-icons/io5";
-import { useLocation, Link, Outlet } from "react-router-dom";
+import { useLocation, Link, Outlet, useNavigate } from "react-router-dom";
 
 interface NavbarItems {
     pageTitle: string;
@@ -33,8 +33,9 @@ const pages: NavbarItems[] = [
     },
 ];
 
-const Navbar: FC<PropsWithChildren<{ isOutlet: boolean }>> = ({ children, isOutlet }) => {
+const Navbar: FC = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { colorMode, toggleColorMode } = useColorMode();
     const [currentPath, setCurrentPath] = useState(
         location.pathname.split("/")[location.pathname.split("/").length - 1]
@@ -109,7 +110,7 @@ const Navbar: FC<PropsWithChildren<{ isOutlet: boolean }>> = ({ children, isOutl
                     onClick={toggleColorMode}
                 />
             </HStack>
-            {isOutlet ? <Outlet /> : children}
+            <Outlet />
         </Box>
     );
 };

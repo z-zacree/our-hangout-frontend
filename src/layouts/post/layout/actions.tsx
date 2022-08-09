@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 
-const ArticleActions = () => {
+const Actions = () => {
     return (
         <Box as="aside" p={4}>
             <Text>Article Actions</Text>
@@ -8,4 +8,4 @@ const ArticleActions = () => {
     );
 };
 
-export default ArticleActions;
+export default Actions;
