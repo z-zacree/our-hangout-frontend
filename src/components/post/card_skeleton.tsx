@@ -25,12 +25,12 @@ const PostCard: FC = () => {
                 <Spacer />
                 <Flex align="center">
                     <Skeleton h={4} w={8} />
-                    <Box as={IoEye} ml={2} color="green.500" />
+                    <Box as={IoEye} ml={2} color="purple.500" />
                 </Flex>
                 <Flex ml={10} align="center">
                     <Skeleton h={4} w={8} />
 
-                    <Box as={IoBookmark} ml={2} color="green.500" />
+                    <Box as={IoBookmark} ml={2} color="purple.500" />
                 </Flex>
             </HStack>
         </Box>

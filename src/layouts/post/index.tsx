@@ -5,6 +5,7 @@ import { useGetPost } from "@/hooks/post";
 import Layout from "./layout";
 
 const Post: FC = () => {
+    window.scroll(0, 0);
     let { id } = useParams();
     let { post, isLoading } = useGetPost(parseInt(id!));
 

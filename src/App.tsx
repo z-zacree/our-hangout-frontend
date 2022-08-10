@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
-import { Home, About, NotFound, Category, Categories, Post } from "./layouts";
 import { Navbar } from "./components";
+import { About, Categories, Category, Home, Login, NotFound, Post, Register } from "./layouts";
 import { RouteNames } from "./utils/routes";
 
 export default () => (
@@ -15,6 +15,8 @@ export default () => (
                 <Route path={RouteNames.home} element={<Home />} />
                 <Route path={RouteNames.post} element={<Post />} />
             </Route>
+            <Route path={RouteNames.login} element={<Login />} />
+            <Route path={RouteNames.register} element={<Register />} />
         </Routes>
     </>
 );

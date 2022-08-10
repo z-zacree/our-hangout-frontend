@@ -1,25 +1,25 @@
 import useSWR from "swr";
 import axios from "axios";
-import { Post } from "../models/post";
+import { Post, CategoryPosts } from "@/models";
 
 const getfetcher = (url: string) =>
-    axios.get(`http://localhost:8000/api/${url}`).then((res) => res.data as Post[]);
+    axios.get(`http://localhost:8000/api/${url}`).then(({ data }) => data);
 
 export function useGetAllPosts() {
     const { data, error } = useSWR(`posts`, getfetcher);
 
     return {
-        posts: data,
+        posts: data as Post[],
         isLoading: !error && !data,
         isError: error,
     };
 }
 
-export function useGetPostsByCategory(category: string) {
-    const { data, error } = useSWR(`category/${category}`, getfetcher);
+export function useGetCategoryPosts(category: string) {
+    const { data, error } = useSWR(`c/${category}`, getfetcher);
 
     return {
-        posts: data,
+        categoryPosts: data as CategoryPosts,
         isLoading: !error && !data,
         isError: error,
     };
@@ -29,7 +29,7 @@ export function useGetPost(id: number) {
     const { data, error } = useSWR(`posts/${id}`, getfetcher);
 
     return {
-        post: data,
+        post: data as Post,
         isLoading: !error && !data,
         isError: error,
     };

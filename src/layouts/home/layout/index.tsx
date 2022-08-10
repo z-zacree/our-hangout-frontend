@@ -27,7 +27,7 @@ const ListingLayout: FC<PropsWithChildren> = ({ children }) => {
             >
                 <PrimarySideBar />
             </GridItem>
-            <GridItem w="100%">{children}</GridItem>
+            <GridItem>{children}</GridItem>
             <GridItem
                 position="sticky"
                 alignSelf="flex-start"

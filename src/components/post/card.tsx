@@ -1,29 +1,31 @@
+import { Post } from "@/models/post";
+import { fDate } from "@/utils/date";
 import {
     Box,
     Button,
     Flex,
     HStack,
+    Link,
     Spacer,
     Stack,
     Text,
-    useColorMode,
-    Link,
+    useColorModeValue,
 } from "@chakra-ui/react";
 import { FC } from "react";
-import { IoEye, IoBookmark } from "react-icons/io5";
+import { IoBookmark, IoEye } from "react-icons/io5";
 import { Link as DomLink } from "react-router-dom";
-import { Post } from "@/models/post";
-import { fDate } from "@/utils/date";
 
 const PostCard: FC<{ post: Post }> = ({ post }) => {
-    const { colorMode } = useColorMode();
-
-    let cardBg = colorMode === "light" ? "white" : "hsl(0, 0%, 10%)";
-
     return (
-        <Box as="article" bg={cardBg} p={4} borderWidth={1} borderRadius={8}>
+        <Box
+            as="article"
+            bg={useColorModeValue("white", "gray.700")}
+            p={4}
+            boxShadow="md"
+            borderRadius={8}
+        >
             <Text
-                color="green.500"
+                color="purple.400"
                 textTransform={"uppercase"}
                 fontWeight="bold"
                 fontSize={"sm"}
@@ -37,17 +39,17 @@ const PostCard: FC<{ post: Post }> = ({ post }) => {
                 </Text>
             </Link>
             <Flex align="baseline" mt={2}>
-                {post.categories.map((name, index) => {
+                {post.categories.map(({ id, color, name }) => {
                     return (
                         <Button
                             as={DomLink}
-                            to={`/c/${name.toLocaleLowerCase()}`}
+                            to={`/c/${name.toLowerCase()}`}
                             size="sm"
                             mr={2}
                             variant="outline"
-                            key={index}
+                            key={id}
                         >
-                            <Text fontSize="sm" fontWeight="bold" color="gray.500">
+                            <Text fontSize="sm" fontWeight="bold" color={color}>
                                 {name}
                             </Text>
                         </Button>
@@ -68,13 +70,13 @@ const PostCard: FC<{ post: Post }> = ({ post }) => {
                     <Text mr={1} fontSize="sm">
                         <b>{post.views}</b>
                     </Text>
-                    <Box as={IoEye} color="green.500" />
+                    <Box as={IoEye} color="purple.400" />
                 </Flex>
                 <Flex ml={10} align="center">
                     <Text mr={1} fontSize="sm">
                         <b>{post.bookmarks}</b>
                     </Text>
-                    <Box as={IoBookmark} color="green.500" />
+                    <Box as={IoBookmark} color="purple.400" />
                 </Flex>
             </HStack>
         </Box>

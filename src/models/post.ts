@@ -1,3 +1,4 @@
+import { Category } from "./category";
 import { PostType } from "./enums";
 
 export interface Post {
@@ -8,7 +9,7 @@ export interface Post {
     type: keyof typeof PostType;
     views: number;
     bookmarks: number;
-    categories: string[];
+    categories: Category[];
     created_at: Date;
     updated_at: Date;
 }
