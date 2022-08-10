@@ -11,6 +11,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Global, css } from "@emotion/react";
 
 import App from "./App";
+import UserContextProvider from "./utils/context/userContext";
 
 const Text: ComponentStyleConfig = {
     baseStyle: (props) => ({
@@ -53,11 +54,13 @@ const globalTheme = css(
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <ChakraProvider theme={theme}>
-            <Global styles={globalTheme} />
-            <BrowserRouter>
-                <App />
-            </BrowserRouter>
-        </ChakraProvider>
+        <UserContextProvider>
+            <ChakraProvider theme={theme}>
+                <Global styles={globalTheme} />
+                <BrowserRouter>
+                    <App />
+                </BrowserRouter>
+            </ChakraProvider>
+        </UserContextProvider>
     </StrictMode>
 );

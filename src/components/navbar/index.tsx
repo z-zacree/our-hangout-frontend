@@ -16,11 +16,12 @@ import {
     useColorMode,
     useColorModeValue,
 } from "@chakra-ui/react";
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { IoMenu, IoSunny, IoMoon, IoVideocam } from "react-icons/io5";
 import { useLocation, Link, Outlet } from "react-router-dom";
 import { RouteNames } from "@/utils/routes";
-import { useAuthState } from "@/hooks/account";
+import { AuthContext } from "@/utils/context/utils";
+import axios from "axios";
 
 interface NavbarItems {
     pageTitle: string;
@@ -41,7 +42,7 @@ const pages: NavbarItems[] = [
 const Navbar: FC = () => {
     const location = useLocation();
     const { colorMode, toggleColorMode } = useColorMode();
-    const { account, isLoading, isError } = useAuthState();
+    const { auth, dispatch } = useContext(AuthContext);
     const [currentPath, setCurrentPath] = useState(
         location.pathname.split("/")[location.pathname.split("/").length - 1]
     );
@@ -50,6 +51,20 @@ const Navbar: FC = () => {
     useEffect(() => {
         setCurrentPath(location.pathname.split("/")[location.pathname.split("/").length - 1]);
     }, [location]);
+
+    const handleLogout = () => {
+        axios.post(
+            "http://localhost:8000/api/logout",
+            {},
+            { headers: { Authorization: `Bearer ${auth.token}` } }
+        );
+        dispatch({
+            ...auth,
+            isAuthenticated: false,
+            token: null,
+            account: null,
+        });
+    };
 
     return (
         <Box position="relative">
@@ -102,18 +117,7 @@ const Navbar: FC = () => {
                         ))}
                     </HStack>
                     <Spacer display={{ base: "none", md: "block" }} />
-                    {isLoading ? null : isError ? (
-                        <ButtonGroup>
-                            <Link to={RouteNames.register}>
-                                <Button colorScheme="gray">Sign Up</Button>
-                            </Link>
-                            <Link to={RouteNames.login}>
-                                <Button colorScheme="gray" display={{ base: "none", md: "flex" }}>
-                                    Sign In
-                                </Button>
-                            </Link>
-                        </ButtonGroup>
-                    ) : (
+                    {auth.isAuthenticated ? (
                         <>
                             <Button
                                 variant={"solid"}
@@ -144,12 +148,21 @@ const Navbar: FC = () => {
                                     <MenuItem>Link 1</MenuItem>
                                     <MenuItem>Link 2</MenuItem>
                                     <MenuDivider />
-                                    <MenuItem onClick={() => localStorage.setItem("token", "")}>
-                                        Sign out
-                                    </MenuItem>
+                                    <MenuItem onClick={handleLogout}>Sign out</MenuItem>
                                 </MenuList>
                             </Menu>
                         </>
+                    ) : (
+                        <ButtonGroup>
+                            <Link to={RouteNames.register}>
+                                <Button colorScheme="gray">Sign Up</Button>
+                            </Link>
+                            <Link to={RouteNames.login}>
+                                <Button colorScheme="gray" display={{ base: "none", md: "flex" }}>
+                                    Sign In
+                                </Button>
+                            </Link>
+                        </ButtonGroup>
                     )}
                     <IconButton
                         ml={2}

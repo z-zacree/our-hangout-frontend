@@ -1,8 +1,12 @@
 export interface Account {
     id: number;
-    name: string;
+    username: string;
     description: string;
     email: string;
     avatar: string | null;
-    created_at: Date;
+}
+
+export interface AccountResponse {
+    token: string;
+    account: Account;
 }

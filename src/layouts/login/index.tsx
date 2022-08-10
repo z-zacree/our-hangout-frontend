@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useContext, useEffect, useState } from "react";
 import {
     Flex,
     Box,
@@ -14,14 +14,17 @@ import {
     useColorModeValue,
     InputGroup,
     InputRightElement,
+    useToast,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { AuthErrorResponse } from "@/models/enums";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import { AccountResponse } from "@/models";
+import { AuthContext } from "@/utils/context/utils";
+import { RouteNames } from "../../utils/routes";
 
-interface LoginData {
+export interface LoginData {
     email: string;
     password: string;
     stay: boolean;
@@ -29,14 +32,12 @@ interface LoginData {
 
 const Login: FC = () => {
     const navigate = useNavigate();
-    const [showError, setShowError] = useState({
-        open: false,
-        text: AuthErrorResponse.Default,
-    });
-    const [showPW, setShowPW] = useState(false);
+    const toast = useToast();
     const [isLoading, setLoading] = useState(false);
+    const { dispatch } = useContext(AuthContext);
+    const [showPW, setShowPW] = useState(false);
 
-    const handleDefault = useCallback(async (values: LoginData) => {
+    const handleSubmit = useCallback(async (values: LoginData) => {
         setLoading(true);
         const formData = {
             stay: values.stay,
@@ -46,26 +47,36 @@ const Login: FC = () => {
 
         axios
             .post("http://localhost:8000/api/login", formData)
-            .then(({ data }) => {
+            .then(({ data }: { data: AccountResponse }) => {
                 setLoading(false);
-                localStorage.setItem("token", data?.token);
+                dispatch({
+                    isLoading: false,
+                    isAuthenticated: true,
+                    token: data.token,
+                    account: data.account,
+                });
+                toast({
+                    title: "Login success.",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                });
                 navigate("/", { replace: true });
             })
-            .catch(({ response }) => {
+            .catch(() => {
                 setLoading(false);
+                toast({
+                    title: "Invalid Credentials.",
+                    status: "error",
+                    duration: 3000,
+                    isClosable: true,
+                });
             });
     }, []);
 
-    const handleError = useEffect(() => {}, []);
-
     return (
-        <Flex
-            minH={"100vh"}
-            align={"center"}
-            justify={"center"}
-            bg={useColorModeValue("gray.50", "gray.800")}
-        >
-            <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Flex minH={"100vh"} align={"center"} justify={"center"}>
+            <Stack spacing={8} maxW={"md"}>
                 <Stack align={"center"}>
                     <Heading fontSize={"4xl"}>Sign in to your account</Heading>
                     <Text fontSize={"lg"} color={"gray.500"}>
@@ -85,7 +96,7 @@ const Login: FC = () => {
                                 password: "",
                                 stay: false,
                             }}
-                            onSubmit={handleDefault}
+                            onSubmit={handleSubmit}
                         >
                             {({ values, errors, touched, handleChange, handleBlur }) => (
                                 <Form>
@@ -130,7 +141,7 @@ const Login: FC = () => {
                                             </InputRightElement>
                                         </InputGroup>
                                     </FormControl>
-                                    <Stack spacing={10} mt={4}>
+                                    <Stack spacing={6} mt={4}>
                                         <Stack
                                             direction={{ base: "column", sm: "row" }}
                                             align={"start"}
@@ -146,16 +157,27 @@ const Login: FC = () => {
                                             <Link color={"purple.400"}>Forgot password?</Link>
                                         </Stack>
                                         <Button
+                                            disabled={isLoading}
                                             color={useColorModeValue("white", "black")}
                                             colorScheme="purple"
                                             type="submit"
                                         >
-                                            Sign in
+                                            {isLoading ? "Attempting to sign you in" : "Sign in"}
                                         </Button>
                                     </Stack>
                                 </Form>
                             )}
                         </Formik>
+                        <Text align="center">
+                            No account?{" "}
+                            <Link
+                                as={ReactRouterLink}
+                                to={RouteNames.register}
+                                color={"purple.400"}
+                            >
+                                Create one now!
+                            </Link>
+                        </Text>
                     </Stack>
                 </Box>
             </Stack>
