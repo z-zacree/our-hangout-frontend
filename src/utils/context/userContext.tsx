@@ -9,31 +9,6 @@ const reducer: Reducer<AuthState, AuthAction> = (state, action) => {
     return action;
 };
 
-const initReducerState = async (dispatch: Dispatch<AuthState>, token: string) => {
-    const res = await axios
-        .get("http://localhost:8000/api/account", {
-            headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((data) => data)
-        .catch(({ response }) => response);
-
-    if (res.status == 401) {
-        dispatch({
-            isLoading: false,
-            isAuthenticated: false,
-            token: null,
-            account: null,
-        });
-    } else if (res.status == 200) {
-        dispatch({
-            isLoading: false,
-            isAuthenticated: true,
-            token: token,
-            account: res.data as Account,
-        });
-    }
-};
-
 const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
     const [authState, dispatch] = useReducer(reducer, {
         isLoading: true,
@@ -43,10 +18,35 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
     });
 
     useEffect(() => {
+        const initReducerState = async (token: string) => {
+            const res = await axios
+                .get("http://localhost:8000/api/account", {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                .then((data) => data)
+                .catch(({ response }) => response);
+
+            if (res.status == 401) {
+                dispatch({
+                    isLoading: false,
+                    isAuthenticated: false,
+                    token: null,
+                    account: null,
+                });
+            } else if (res.status == 200) {
+                dispatch({
+                    isLoading: false,
+                    isAuthenticated: true,
+                    token: token,
+                    account: res.data as Account,
+                });
+            }
+        };
+
         const tokenOnMount = localStorage.getItem("token");
 
         if (tokenOnMount != null) {
-            initReducerState(dispatch, tokenOnMount);
+            initReducerState(tokenOnMount);
         } else {
             dispatch({ ...authState, isLoading: false });
         }

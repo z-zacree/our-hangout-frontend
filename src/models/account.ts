@@ -7,6 +7,7 @@ export interface Account {
 }
 
 export interface AccountResponse {
+    message: string;
     token: string;
     account: Account;
 }
