@@ -27,7 +27,7 @@ import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 interface LoginData {
-    email: string;
+    emailOrUsername: string;
     password: string;
     stay: boolean;
 }
@@ -41,11 +41,27 @@ const Login: FC = () => {
 
     const handleSubmit = useCallback(async (values: LoginData) => {
         setLoading(true);
-        const formData = {
-            stay: values.stay,
-            email: values.email.trim(),
-            password: values.password.trim(),
-        };
+
+        const formData = await SignInSchema.validate({
+            email: values.emailOrUsername,
+            emailOrUsername: values.emailOrUsername,
+            password: values.password,
+        })
+            .then(() => ({
+                stay: values.stay,
+                email: values.emailOrUsername.trim(),
+                password: values.password.trim(),
+            }))
+            .catch((err) => {
+                console.log(err);
+                return {
+                    stay: values.stay,
+                    username: values.emailOrUsername.trim(),
+                    password: values.password.trim(),
+                };
+            });
+
+        console.log(formData);
 
         axios
             .post("http://localhost:8000/api/login", formData)
@@ -99,7 +115,7 @@ const Login: FC = () => {
                     <Stack spacing={4}>
                         <Formik
                             initialValues={{
-                                email: "",
+                                emailOrUsername: "",
                                 password: "",
                                 stay: false,
                             }}
@@ -110,18 +126,22 @@ const Login: FC = () => {
                                 <Form>
                                     <Stack spacing={6}>
                                         <FormControl
-                                            id="email"
-                                            isInvalid={touched.email && !!errors.email}
+                                            id="emailOrUsername"
+                                            isInvalid={
+                                                touched.emailOrUsername && !!errors.emailOrUsername
+                                            }
                                         >
-                                            <FormLabel>Email address</FormLabel>
+                                            <FormLabel>Email or Username</FormLabel>
                                             <Field
                                                 as={Input}
-                                                id="email"
-                                                name="email"
+                                                id="emailOrUsername"
+                                                name="emailOrUsername"
                                                 autoComplete="email"
                                                 variant="filled"
                                             />
-                                            <FormErrorMessage>{errors.email}</FormErrorMessage>
+                                            <FormErrorMessage>
+                                                {errors.emailOrUsername}
+                                            </FormErrorMessage>
                                         </FormControl>
                                         <FormControl
                                             id="password"
@@ -190,7 +210,8 @@ const Login: FC = () => {
 };
 
 const SignInSchema = Yup.object({
-    email: Yup.string().email("Please enter a valid email.").required("Email is required."),
+    email: Yup.string().email("invalidEmail"),
+    emailOrUsername: Yup.string().required("Email or username is required."),
     password: Yup.string().min(8, "Password is invalid").required("Password is required"),
 });
 
