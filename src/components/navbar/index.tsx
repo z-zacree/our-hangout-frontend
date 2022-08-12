@@ -12,13 +12,22 @@ import {
     MenuDivider,
     MenuItem,
     MenuList,
+    Text,
     Spacer,
     useColorMode,
     useColorModeValue,
 } from "@chakra-ui/react";
 import { FC, useContext, useEffect, useState } from "react";
-import { IoMenu, IoSunny, IoMoon, IoNewspaper } from "react-icons/io5";
-import { useLocation, Link, Outlet } from "react-router-dom";
+import {
+    IoMenu,
+    IoSunny,
+    IoMoon,
+    IoNewspaper,
+    IoPerson,
+    IoSettings,
+    IoExit,
+} from "react-icons/io5";
+import { useLocation, Link, Outlet, useNavigate } from "react-router-dom";
 import { RouteNames } from "@/utils/routes";
 import { AuthContext } from "@/utils/context/utils";
 import axios from "axios";
@@ -41,6 +50,7 @@ const pages: NavbarItems[] = [
 
 const Navbar: FC = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { colorMode, toggleColorMode } = useColorMode();
     const { auth, dispatch } = useContext(AuthContext);
     const [currentPath, setCurrentPath] = useState(
@@ -143,10 +153,26 @@ const Navbar: FC = () => {
                                     />
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem>Link 1</MenuItem>
-                                    <MenuItem>Link 2</MenuItem>
+                                    <MenuItem
+                                        icon={<IoPerson />}
+                                        onClick={() => navigate(RouteNames.profile)}
+                                    >
+                                        Profile
+                                    </MenuItem>
+                                    <MenuItem
+                                        icon={<IoSettings />}
+                                        onClick={() => navigate(RouteNames.settings)}
+                                    >
+                                        Settings
+                                    </MenuItem>
                                     <MenuDivider />
-                                    <MenuItem onClick={handleLogout}>Sign out</MenuItem>
+                                    <MenuItem
+                                        color="red.300"
+                                        icon={<IoExit />}
+                                        onClick={handleLogout}
+                                    >
+                                        Sign out
+                                    </MenuItem>
                                 </MenuList>
                             </Menu>
                         </>

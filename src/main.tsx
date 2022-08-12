@@ -53,14 +53,12 @@ const globalTheme = css(
 );
 
 createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-        <UserContextProvider>
-            <ChakraProvider theme={theme}>
-                <Global styles={globalTheme} />
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </ChakraProvider>
-        </UserContextProvider>
-    </StrictMode>
+    <UserContextProvider>
+        <ChakraProvider theme={theme}>
+            <Global styles={globalTheme} />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </ChakraProvider>
+    </UserContextProvider>
 );

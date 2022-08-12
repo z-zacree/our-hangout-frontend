@@ -4,6 +4,8 @@ export enum RouteNames {
     post = "/post/:id",
     category = "/c/:name",
     categories = "/c",
-    register = "/register",
     login = "/login",
+    register = "/register",
+    profile = "/profile",
+    settings = "/settings",
 }

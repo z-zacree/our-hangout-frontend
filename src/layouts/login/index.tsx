@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
-import { useCallback, useContext, useState } from "react";
+import { FC, useCallback, useContext, useState } from "react";
 import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
@@ -32,7 +32,7 @@ interface LoginData {
     stay: boolean;
 }
 
-const Login = () => {
+const Login: FC = () => {
     const navigate = useNavigate();
     const toast = useToast();
     const [isLoading, setLoading] = useState(false);

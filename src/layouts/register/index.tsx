@@ -17,7 +17,7 @@ import {
     FormErrorMessage,
     useToast,
 } from "@chakra-ui/react";
-import { useCallback, useContext, useRef, useState } from "react";
+import { FC, useCallback, useContext, useRef, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
@@ -34,7 +34,7 @@ interface RegisterData {
     password: string;
 }
 
-const Register = () => {
+const Register: FC = () => {
     const navigate = useNavigate();
     const toast = useToast();
     const inputRef = useRef<HTMLInputElement>(null);
