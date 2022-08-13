@@ -134,29 +134,14 @@ const Register: FC = () => {
                                         flexDir={"column"}
                                         alignItems={"center"}
                                     >
-                                        {values.avatar ? (
-                                            <Avatar
-                                                border={useColorModeValue(
-                                                    "4px solid white",
-                                                    "4px solid var(--chakra-colors-gray-700)"
-                                                )}
-                                                size={"2xl"}
-                                            >
-                                                <Image
-                                                    borderRadius="full"
-                                                    boxSize="full"
-                                                    src={values.avatar}
-                                                />
-                                            </Avatar>
-                                        ) : (
-                                            <Avatar
-                                                border={useColorModeValue(
-                                                    "4px solid white",
-                                                    "4px solid var(--chakra-colors-gray-700)"
-                                                )}
-                                                size={"2xl"}
-                                            />
-                                        )}
+                                        <Avatar
+                                            border={useColorModeValue(
+                                                "4px solid white",
+                                                "4px solid var(--chakra-colors-gray-700)"
+                                            )}
+                                            size={"2xl"}
+                                            src={values.avatar ?? undefined}
+                                        />
                                         <input
                                             type="file"
                                             accept="image/png, image/jpeg, image/jpg"

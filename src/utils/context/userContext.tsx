@@ -1,6 +1,6 @@
+import { Account } from "@/models";
 import axios from "axios";
-import { Dispatch, FC, PropsWithChildren, Reducer, useEffect, useReducer } from "react";
-import { Account } from "../../models";
+import { FC, PropsWithChildren, Reducer, useEffect, useReducer } from "react";
 import { AuthAction, AuthContext, AuthState } from "./utils";
 
 const token = localStorage.getItem("token");

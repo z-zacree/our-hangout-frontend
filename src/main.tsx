@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import {
     ChakraProvider,
     ComponentStyleConfig,
@@ -6,9 +5,9 @@ import {
     type ThemeConfig,
 } from "@chakra-ui/react";
 import { mode, StyleFunctionProps } from "@chakra-ui/theme-tools";
+import { css, Global } from "@emotion/react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { Global, css } from "@emotion/react";
 
 import App from "./App";
 import UserContextProvider from "./utils/context/userContext";
