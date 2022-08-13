@@ -42,7 +42,7 @@ const Post: FC = () => {
                         </Wrap>
                         <Text>{post.content}</Text>
                         <HStack w="100%" justifyContent={"space-between"}>
-                            <Text>By: {post.author}</Text>
+                            <Text>By: {post.author.username}</Text>
                             <Text>
                                 {post.updated_at != post.created_at
                                     ? `Updated ${fDate(post.updated_at)}`

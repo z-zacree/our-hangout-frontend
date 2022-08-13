@@ -15,6 +15,7 @@ const CategoryButton: FC<ButtonProps> = ({ category }) => {
             variant={"outline"}
             as={ReactRouterLink}
             to={`/c/${category.name.toLowerCase()}`}
+            borderColor={`${category.color}75`}
             _hover={{
                 bg: `${category.color}1a`,
                 borderColor: category.color,

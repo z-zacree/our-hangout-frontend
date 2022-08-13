@@ -1,6 +1,16 @@
 import { Post } from "@/models/post";
 import { fDate } from "@/utils/date";
-import { Box, Flex, HStack, Link, Spacer, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Flex,
+    HStack,
+    Link,
+    Spacer,
+    Stack,
+    Text,
+    useColorModeValue,
+} from "@chakra-ui/react";
 import { FC } from "react";
 import { IoBookmark, IoEye } from "react-icons/io5";
 import { Link as ReactRouterLink } from "react-router-dom";
@@ -15,15 +25,22 @@ const PostCard: FC<{ post: Post }> = ({ post }) => {
             boxShadow={"md"}
             borderRadius={8}
         >
-            <Text
-                color={"purple.400"}
-                textTransform={"uppercase"}
-                fontWeight={"bold"}
-                fontSize={"sm"}
-                letterSpacing={1.1}
-            >
-                {post.type.toUpperCase()}
-            </Text>
+            <HStack>
+                <Text
+                    color={"purple.400"}
+                    textTransform={"uppercase"}
+                    fontWeight={"bold"}
+                    fontSize={"sm"}
+                    letterSpacing={1.1}
+                >
+                    {post.type.toUpperCase()}
+                </Text>
+                <Spacer />
+                <HStack>
+                    <Avatar size={"sm"} src={post.author.avatar ?? undefined} />
+                    <Text fontSize={"sm"}>{post.author.username}</Text>
+                </HStack>
+            </HStack>
             <Link as={ReactRouterLink} to={`/post/${post.id}`}>
                 <Text mt={2} fontWeight={"bold"} fontSize={"xl"}>
                     {post.title}
@@ -35,14 +52,9 @@ const PostCard: FC<{ post: Post }> = ({ post }) => {
                 })}
             </Flex>
             <HStack mt={2} alignItems={"flex-end"}>
-                <Stack ml={1} spacing={0}>
-                    <Text fontSize={"sm"}>
-                        <b>Posted by: </b> {post.author}
-                    </Text>
-                    <Text fontSize={"xs"} color={"gray"}>
-                        {fDate(post.created_at)}
-                    </Text>
-                </Stack>
+                <Text fontSize={"xs"} color={"gray"}>
+                    {fDate(post.created_at)}
+                </Text>
                 <Spacer />
                 <Flex align={"center"}>
                     <Text mr={1} fontSize={"sm"}>
