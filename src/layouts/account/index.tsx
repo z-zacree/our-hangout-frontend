@@ -1,3 +1,5 @@
+import { AccountResponse } from "@/models";
+import { AuthContext } from "@/utils/context/utils";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import {
     Avatar,
@@ -11,24 +13,17 @@ import {
     FormErrorMessage,
     FormLabel,
     Heading,
-    HStack,
-    Icon,
     IconButton,
     Input,
     Stack,
-    Text,
     useColorModeValue,
     useToast,
 } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import axios from "axios";
 import { ChangeEvent, FC, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { IoChevronBack } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../utils/context/utils";
-
 import * as Yup from "yup";
-import axios from "axios";
-import { Account, AccountResponse } from "../../models";
 
 interface InputData {
     data: string;

@@ -1,9 +1,8 @@
+import { useGetCategoryPosts } from "@/hooks/post";
 import { Box, Button, Flex, IconButton, Text, useColorModeValue } from "@chakra-ui/react";
 import { Dispatch, FC, SetStateAction } from "react";
 import { IoChevronBack, IoSettings } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
-import { Category } from "@/models";
-import { useGetCategoryPosts } from "@/hooks/post";
 
 interface HeaderProps {
     open: boolean;

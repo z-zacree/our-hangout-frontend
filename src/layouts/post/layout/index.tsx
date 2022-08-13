@@ -20,7 +20,6 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
                 alignSelf="flex-start"
                 top={4}
                 display={{ base: "none", md: "block" }}
-                bg="blue.500"
             >
                 <Actions />
             </GridItem>

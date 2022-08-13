@@ -10,8 +10,7 @@ import {
     Text,
     useColorModeValue,
 } from "@chakra-ui/react";
-import { FC } from "react";
-import { ReactElement } from "react";
+import { FC, ReactElement } from "react";
 import { IoBicycle, IoPeople, IoSearchSharp } from "react-icons/io5";
 
 interface FeatureProps {

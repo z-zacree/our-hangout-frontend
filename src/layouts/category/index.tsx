@@ -2,7 +2,6 @@ import { PostCard, SkeletonCard } from "@/components";
 import { useGetCategoryPosts } from "@/hooks/post";
 import { Post, Sort } from "@/models";
 import { Stack } from "@chakra-ui/react";
-import axios from "axios";
 import { FC, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "./components";
@@ -12,7 +11,7 @@ const Category: FC = () => {
     const [sort, setSort] = useState(Sort.Latest);
     const { name } = useParams();
 
-    const { categoryPosts, isLoading } = useGetCategoryPosts(name!);
+    const { categoryPosts } = useGetCategoryPosts(name!);
 
     const sortPosts = (a: Post, b: Post) => {
         switch (sort) {

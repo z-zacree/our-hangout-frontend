@@ -4,6 +4,7 @@ import { PostType } from "./enums";
 export interface Post {
     id: number;
     title: string;
+    subtitle: string | null;
     content: string;
     author: Author;
     type: keyof typeof PostType;

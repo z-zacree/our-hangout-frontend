@@ -1,30 +1,29 @@
+import { AuthContext } from "@/utils/context/utils";
+import { RouteNames } from "@/utils/routes";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
-    Flex,
+    Avatar,
     Box,
+    Button,
+    Flex,
     FormControl,
+    FormErrorMessage,
     FormLabel,
+    Heading,
     Input,
     InputGroup,
-    Image,
     InputRightElement,
+    Link,
     Stack,
-    Button,
-    Heading,
     Text,
     useColorModeValue,
-    Link,
-    Avatar,
-    FormErrorMessage,
     useToast,
 } from "@chakra-ui/react";
-import { FC, useCallback, useContext, useRef, useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import * as Yup from "yup";
-import { Field, Form, Formik } from "formik";
-import { RouteNames } from "@/utils/routes";
-import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
-import { AuthContext } from "@/utils/context/utils";
 import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import { FC, useCallback, useContext, useRef, useState } from "react";
+import { Link as ReactRouterLink, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 import { AccountResponse } from "../../models";
 
 interface RegisterData {

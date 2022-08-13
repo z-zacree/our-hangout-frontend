@@ -4,6 +4,7 @@ export interface Account {
     description: string;
     email: string;
     avatar: string | null;
+    bookmarks: number[];
 }
 
 export interface AccountResponse {

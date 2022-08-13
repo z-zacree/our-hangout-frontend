@@ -1,4 +1,4 @@
-import { Account } from "@/models";
+import { AccountResponse } from "@/models";
 import axios from "axios";
 import { FC, PropsWithChildren, Reducer, useEffect, useReducer } from "react";
 import { AuthAction, AuthContext, AuthState } from "./utils";
@@ -26,19 +26,19 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
                 .then((data) => data)
                 .catch(({ response }) => response);
 
-            if (res.status == 401) {
+            if (res.status == 200) {
+                dispatch({
+                    isLoading: false,
+                    isAuthenticated: true,
+                    token: token,
+                    account: (res.data as AccountResponse).account,
+                });
+            } else {
                 dispatch({
                     isLoading: false,
                     isAuthenticated: false,
                     token: null,
                     account: null,
-                });
-            } else if (res.status == 200) {
-                dispatch({
-                    isLoading: false,
-                    isAuthenticated: true,
-                    token: token,
-                    account: res.data as Account,
                 });
             }
         };

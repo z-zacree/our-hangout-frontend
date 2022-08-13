@@ -1,7 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import { FC, PropsWithChildren } from "react";
-import PrimarySideBar from "./primary";
 import AdditionalSideBar from "./additional";
+import PrimarySideBar from "./primary";
 
 const ListingLayout: FC<PropsWithChildren> = ({ children }) => {
     return (

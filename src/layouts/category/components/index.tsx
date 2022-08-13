@@ -1,4 +1,4 @@
-import { Category, Sort } from "@/models";
+import { Sort } from "@/models";
 import { Button, ButtonGroup, Container, HStack, Text, useColorModeValue } from "@chakra-ui/react";
 import { Dispatch, FC, PropsWithChildren, SetStateAction, useState } from "react";
 import Header from "./header";
