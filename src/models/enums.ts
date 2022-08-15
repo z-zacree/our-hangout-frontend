@@ -5,10 +5,10 @@ export enum Sort {
 }
 
 export enum PostType {
-    Blog = "BLOG",
-    Advice = "ADVICE",
-    Complaint = "COMPLAINT",
-    Request = "REQUEST",
+    Blog = "Blog",
+    Advice = "Advice",
+    Complaint = "Complaint",
+    Request = "Request",
 }
 
 export enum AuthErrorResponse {

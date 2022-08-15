@@ -1,5 +1,5 @@
 import { useGetPost } from "@/hooks/post";
-import { IconButton, Text, useToast, VStack } from "@chakra-ui/react";
+import { IconButton, Text, Tooltip, useToast, VStack } from "@chakra-ui/react";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { IoBookmarkOutline, IoDocuments } from "react-icons/io5";
@@ -48,9 +48,7 @@ const Actions = () => {
             if (auth.account?.bookmarks.includes(post.id)) {
                 const res = await axios
                     .delete(`http://localhost:8000/api/bookmark/${post.id}`, {
-                        headers: {
-                            Authorization: `Bearer ${auth.token}`,
-                        },
+                        headers: { Authorization: `Bearer ${auth.token}` },
                     })
                     .then(({ data }) => {
                         setLoading(false);
@@ -89,11 +87,7 @@ const Actions = () => {
                     .post(
                         `http://localhost:8000/api/bookmark/${post.id}`,
                         {},
-                        {
-                            headers: {
-                                Authorization: `Bearer ${auth.token}`,
-                            },
-                        }
+                        { headers: { Authorization: `Bearer ${auth.token}` } }
                     )
                     .then(({ data }) => {
                         setLoading(false);
@@ -134,26 +128,30 @@ const Actions = () => {
     return (
         <VStack as={"aside"} p={4} gap={4}>
             <VStack gap={0}>
-                <IconButton
-                    colorScheme={
-                        auth.isAuthenticated && auth.account?.bookmarks?.includes(post?.id)
-                            ? "purple"
-                            : "gray"
-                    }
-                    disabled={!auth.isAuthenticated || !post || loading}
-                    size={"lg"}
-                    aria-label={"bookmark"}
-                    icon={<IoBookmarkOutline />}
-                    onClick={handleBookmark}
-                />
+                <Tooltip label={"Bookmark"} placement={"right"} hasArrow shouldWrapChildren>
+                    <IconButton
+                        colorScheme={
+                            auth.isAuthenticated && auth.account?.bookmarks?.includes(post?.id)
+                                ? "purple"
+                                : "gray"
+                        }
+                        disabled={!auth.isAuthenticated || !post || loading}
+                        size={"lg"}
+                        aria-label={"Bookmark"}
+                        icon={<IoBookmarkOutline />}
+                        onClick={handleBookmark}
+                    />
+                </Tooltip>
                 <Text fontFamily={"mono"}>{post ? post.bookmarks : null}</Text>
             </VStack>
-            <IconButton
-                size={"lg"}
-                aria-label={"bookmark"}
-                icon={<IoDocuments />}
-                onClick={handleCopyURL}
-            />
+            <Tooltip label={"Copy Link"} placement={"right"} hasArrow>
+                <IconButton
+                    size={"lg"}
+                    aria-label={"Copy Link"}
+                    icon={<IoDocuments />}
+                    onClick={handleCopyURL}
+                />
+            </Tooltip>
         </VStack>
     );
 };

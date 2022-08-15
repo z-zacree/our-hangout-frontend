@@ -1,3 +1,5 @@
+import { AuthContext } from "@/utils/context/utils";
+import { RouteNames } from "@/utils/routes";
 import {
     Avatar,
     Box,
@@ -12,39 +14,42 @@ import {
     MenuDivider,
     MenuItem,
     MenuList,
-    Text,
     Spacer,
     useColorMode,
     useColorModeValue,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { FC, useContext, useEffect, useState } from "react";
+import { IconType } from "react-icons";
 import {
+    IoBook,
+    IoExit,
+    IoHome,
     IoMenu,
-    IoSunny,
     IoMoon,
     IoNewspaper,
     IoPerson,
     IoSettings,
-    IoExit,
+    IoSunny,
 } from "react-icons/io5";
-import { useLocation, Link, Outlet, useNavigate } from "react-router-dom";
-import { RouteNames } from "@/utils/routes";
-import { AuthContext } from "@/utils/context/utils";
-import axios from "axios";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 interface NavbarItems {
     pageTitle: string;
     pageUrl: string;
+    icon: IconType;
 }
 
 const pages: NavbarItems[] = [
     {
         pageTitle: "Home",
         pageUrl: "",
+        icon: IoHome,
     },
     {
         pageTitle: "About",
         pageUrl: "about",
+        icon: IoBook,
     },
 ];
 
@@ -77,7 +82,7 @@ const Navbar: FC = () => {
     };
 
     return (
-        <Box position="relative">
+        <Box>
             <Box bgColor={navBg}>
                 <Container maxW="7xl" p={4} as={"header"} display="flex" alignItems="center">
                     <Box display={{ base: "block", md: "none" }}>
@@ -95,7 +100,7 @@ const Navbar: FC = () => {
                             <MenuList>
                                 {pages.map((page) => (
                                     <Link to={`/${page.pageUrl}`} key={page.pageUrl}>
-                                        <MenuItem>{page.pageTitle}</MenuItem>
+                                        <MenuItem icon={<page.icon />}>{page.pageTitle}</MenuItem>
                                     </Link>
                                 ))}
                             </MenuList>
@@ -110,7 +115,6 @@ const Navbar: FC = () => {
                             cursor="pointer"
                         />
                     </Link>
-                    <Spacer display={{ base: "block", md: "none" }} />
                     <HStack display={{ base: "none", md: "block" }} spacing={5}>
                         {pages.map((page) => (
                             <Link to={`/${page.pageUrl}`} key={page.pageUrl}>
@@ -126,15 +130,17 @@ const Navbar: FC = () => {
                             </Link>
                         ))}
                     </HStack>
-                    <Spacer display={{ base: "none", md: "block" }} />
+                    <Spacer />
                     {auth.isAuthenticated ? (
                         <>
                             <Button
                                 mr={2}
                                 variant={"solid"}
+                                size={"sm"}
                                 colorScheme={"purple"}
                                 leftIcon={<IoNewspaper />}
                                 display={{ base: "none", md: "inline-flex" }}
+                                onClick={() => navigate(RouteNames.create)}
                             >
                                 Create a Post
                             </Button>
@@ -153,6 +159,12 @@ const Navbar: FC = () => {
                                     />
                                 </MenuButton>
                                 <MenuList>
+                                    <MenuItem
+                                        icon={<IoNewspaper />}
+                                        onClick={() => navigate(RouteNames.create)}
+                                    >
+                                        Create Post
+                                    </MenuItem>
                                     <MenuItem
                                         icon={<IoPerson />}
                                         onClick={() => navigate(RouteNames.profile)}
@@ -178,14 +190,19 @@ const Navbar: FC = () => {
                         </>
                     ) : (
                         <ButtonGroup>
-                            <Link to={RouteNames.register}>
-                                <Button colorScheme="gray">Sign Up</Button>
-                            </Link>
-                            <Link to={RouteNames.login}>
-                                <Button colorScheme="gray" display={{ base: "none", md: "flex" }}>
-                                    Sign In
-                                </Button>
-                            </Link>
+                            <Button
+                                colorScheme="gray"
+                                onClick={() => navigate(RouteNames.register)}
+                            >
+                                Sign Up
+                            </Button>
+                            <Button
+                                colorScheme="gray"
+                                display={{ base: "none", md: "flex" }}
+                                onClick={() => navigate(RouteNames.login)}
+                            >
+                                Login
+                            </Button>
                         </ButtonGroup>
                     )}
                     <IconButton

@@ -59,6 +59,7 @@ const UserContextProvider: FC<PropsWithChildren> = ({ children }) => {
             localStorage.removeItem("token");
         }
     }, [authState]);
+
     return (
         <AuthContext.Provider value={{ auth: authState, dispatch }}>
             {children}

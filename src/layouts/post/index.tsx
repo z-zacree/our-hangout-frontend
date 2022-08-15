@@ -25,7 +25,12 @@ const Post: FC = () => {
                                 </Text>
                             </Stack>
                         </HStack>
-                        <Heading>{post.title}</Heading>
+                        <VStack gap={0}>
+                            <Heading fontWeight={"extrabold"} my={0}>
+                                {post.title}
+                            </Heading>
+                            <Text fontSize={"xl"}>{post.subtitle ?? null}</Text>
+                        </VStack>
                         <Wrap gap={4} justify="center">
                             {post.categories.map((category) => (
                                 <CategoryButton category={category} key={category.id} />

@@ -82,7 +82,7 @@ const AccountPage: FC = () => {
 
         const res = await axios
             .put("http://localhost:8000/api/account", formData, {
-                headers: { authorization: `Bearer ${auth.token}` },
+                headers: { Authorization: `Bearer ${auth.token}` },
             })
             .then(({ data }: { data: AccountResponse }) => {
                 setLoading(false);

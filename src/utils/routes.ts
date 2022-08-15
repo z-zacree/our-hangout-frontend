@@ -1,9 +1,10 @@
 export enum RouteNames {
     home = "/",
     about = "/about",
-    post = "/post/:id",
-    category = "/c/:name",
     categories = "/c",
+    category = "/c/:name",
+    create = "/create",
+    post = "/post/:id",
     login = "/login",
     register = "/register",
     profile = "/profile",

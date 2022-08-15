@@ -35,7 +35,7 @@ const theme: ThemeConfig = extendTheme({
                 m: "1em 40px 1em 30px",
                 pl: "10px",
                 borderLeft: "2px solid",
-                borderColor: mode("gray.200", "gray.700")(props),
+                borderColor: mode("gray.200", "gray.600")(props),
             },
             body: {
                 fontFamily: "body",
@@ -49,7 +49,7 @@ const theme: ThemeConfig = extendTheme({
                 margin: "1em 0",
                 p: 4,
                 borderRadius: 8,
-                bg: mode("gray.200", "gray.700")(props),
+                bg: mode("gray.200", "gray.600")(props),
             },
             h1: {
                 fontSize: "4xl",
@@ -100,6 +100,20 @@ const theme: ThemeConfig = extendTheme({
                 listStyleType: "disc",
                 my: "1em",
                 pl: "40px",
+            },
+            ".ProseMirror": {
+                borderRadius: 8,
+                padding: 4,
+            },
+            ".ProseMirror p.is-editor-empty:first-of-type::before": {
+                color: "#adb5bd",
+                content: "attr(data-placeholder)",
+                float: "left",
+                height: "0",
+                pointerEvents: "none",
+            },
+            "[contenteditable]": {
+                outline: "0px solid transparent",
             },
         }),
     },

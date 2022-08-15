@@ -3,6 +3,7 @@ export { default as About } from "./about";
 export { default as AccountPage } from "./account";
 export { default as Categories } from "./categories";
 export { default as Category } from "./category";
+export { default as Create } from "./create";
 export { default as Home } from "./home";
 export { default as Login } from "./login";
 export { default as Post } from "./post";

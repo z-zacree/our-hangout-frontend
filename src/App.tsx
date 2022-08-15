@@ -11,6 +11,7 @@ import {
     Post,
     AccountPage,
     Register,
+    Create,
 } from "./layouts";
 import { RouteNames } from "./utils/routes";
 
@@ -24,6 +25,7 @@ export default () => (
                 <Route path={RouteNames.category} element={<Category />} />
                 <Route path={RouteNames.home} element={<Home />} />
                 <Route path={RouteNames.post} element={<Post />} />
+                <Route path={RouteNames.create} element={<Create />} />
             </Route>
             <Route path={RouteNames.login} element={<Login />} />
             <Route path={RouteNames.register} element={<Register />} />
