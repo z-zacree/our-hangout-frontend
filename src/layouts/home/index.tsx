@@ -27,6 +27,7 @@ const HomePage: FC = () => {
             <HStack>
                 <ButtonGroup variant="ghost" colorScheme="purple">
                     <Button
+                        size={"lg"}
                         color={useColorModeValue("black", "white")}
                         onClick={() => setSort(Sort.Latest)}
                     >
@@ -38,6 +39,7 @@ const HomePage: FC = () => {
                         </Text>
                     </Button>
                     <Button
+                        size={"lg"}
                         color={useColorModeValue("black", "white")}
                         onClick={() => setSort(Sort.Views)}
                     >
@@ -49,6 +51,7 @@ const HomePage: FC = () => {
                         </Text>
                     </Button>
                     <Button
+                        size={"lg"}
                         color={useColorModeValue("black", "white")}
                         onClick={() => setSort(Sort.Saves)}
                     >

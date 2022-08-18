@@ -1,11 +1,12 @@
 import { AuthContext } from "@/utils/context/utils";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { ChangeEvent, createRef, FC, useContext, useState } from "react";
+import { ChangeEvent, createRef, FC, useContext, useEffect, useState } from "react";
 
 import {
     Box,
     Button,
+    Center,
     Container,
     Divider,
     Grid,
@@ -27,9 +28,9 @@ import Highlight from "@tiptap/extension-highlight";
 import Placeholder from "@tiptap/extension-placeholder";
 import axios from "axios";
 import { TbCheck } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 import { PostType } from "../../models/enums";
 import EditorMenu from "./components/menu";
-import { useNavigate } from "react-router-dom";
 
 const CreatePost: FC = () => {
     const navigate = useNavigate();
@@ -140,7 +141,13 @@ const CreatePost: FC = () => {
             });
     };
 
-    return (
+    useEffect(() => {
+        if (!auth.isLoading && !auth.isAuthenticated) {
+            navigate(-1);
+        }
+    }, [auth]);
+
+    return !auth.isLoading && !auth.isAuthenticated ? (
         <Container maxW={"7xl"} pb={8}>
             <Heading>Create a Post</Heading>
             <Box
@@ -309,6 +316,10 @@ const CreatePost: FC = () => {
                 Create Post
             </Button>
         </Container>
+    ) : (
+        <Center h={"100vh"} w={"100vw"}>
+            <Text>No Account was found, automatically </Text>
+        </Center>
     );
 };
 

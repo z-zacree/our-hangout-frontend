@@ -1,20 +1,9 @@
-import {
-    Box,
-    Button,
-    Center,
-    Divider,
-    Flex,
-    HStack,
-    IconButton,
-    Text,
-    useColorModeValue,
-    VStack,
-    Wrap,
-} from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text, useColorModeValue, VStack } from "@chakra-ui/react";
 import { Editor } from "@tiptap/react";
 import { FC } from "react";
 import { IconType } from "react-icons";
 import { BiCode, BiCodeBlock } from "react-icons/bi";
+import { GrRedo, GrUndo } from "react-icons/gr";
 import {
     TbBold,
     TbH1,
@@ -30,7 +19,6 @@ import {
     TbQuote,
     TbStrikethrough,
 } from "react-icons/tb";
-import { GrRedo, GrUndo } from "react-icons/gr";
 
 interface EditorProps {
     editor: Editor | null;

@@ -34,3 +34,13 @@ export function useGetPost(id: number) {
         isError: error,
     };
 }
+
+export function useGetCategories() {
+    const { data, error } = useSWR(`categories`, getfetcher);
+
+    return {
+        categories: data as string[],
+        isLoading: !error && !data,
+        isError: error,
+    };
+}

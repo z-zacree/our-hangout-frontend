@@ -4,7 +4,7 @@ import { Post, Sort } from "@/models";
 import { Stack } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import { useParams } from "react-router-dom";
-import Layout from "./components";
+import Layout from "./layout";
 
 const Category: FC = () => {
     window.scroll(0, 0);
