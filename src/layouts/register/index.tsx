@@ -235,6 +235,7 @@ const Register: FC = () => {
                                         </FormControl>
                                         <Button
                                             disabled={isLoading}
+                                            isLoading={isLoading}
                                             color={useColorModeValue("white", "black")}
                                             colorScheme="purple"
                                             type="submit"

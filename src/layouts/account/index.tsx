@@ -295,6 +295,7 @@ const AccountPage: FC = () => {
                                         !description.touched &&
                                         !avatar.touched)
                                 }
+                                isLoading={loading}
                             >
                                 {loading ? "Updating..." : "Update Profile"}
                             </Button>

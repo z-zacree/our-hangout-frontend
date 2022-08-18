@@ -136,6 +136,7 @@ const Actions = () => {
                                 : "gray"
                         }
                         disabled={!auth.isAuthenticated || !post || loading}
+                        isLoading={loading}
                         size={"lg"}
                         aria-label={"Bookmark"}
                         icon={<IoBookmarkOutline />}

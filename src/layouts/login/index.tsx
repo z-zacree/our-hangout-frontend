@@ -53,15 +53,12 @@ const Login: FC = () => {
                 password: values.password.trim(),
             }))
             .catch((err) => {
-                console.log(err);
                 return {
                     stay: values.stay,
                     username: values.emailOrUsername.trim(),
                     password: values.password.trim(),
                 };
             });
-
-        console.log(formData);
 
         axios
             .post("http://localhost:8000/api/login", formData)
@@ -186,6 +183,7 @@ const Login: FC = () => {
                                         </Stack>
                                         <Button
                                             disabled={isLoading}
+                                            isLoading={isLoading}
                                             color={useColorModeValue("white", "black")}
                                             colorScheme="purple"
                                             type="submit"

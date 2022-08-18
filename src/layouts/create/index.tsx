@@ -29,8 +29,10 @@ import axios from "axios";
 import { TbCheck } from "react-icons/tb";
 import { PostType } from "../../models/enums";
 import EditorMenu from "./components/menu";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost: FC = () => {
+    const navigate = useNavigate();
     const toast = useToast();
     const { auth } = useContext(AuthContext);
     const [title, setTitle] = useState("");
@@ -106,8 +108,6 @@ const CreatePost: FC = () => {
             content: editor?.getHTML(),
         };
 
-        console.log(formData);
-
         axios
             .post("http://localhost:8000/api/posts", formData, {
                 headers: { Authorization: `Bearer ${auth.token}` },
@@ -124,10 +124,19 @@ const CreatePost: FC = () => {
                         isClosable: true,
                     });
                 }
+                navigate("/", { replace: true });
             })
-            .catch(({ response }) => {
+            .catch(() => {
                 setLoading(false);
-                console.log(response);
+                if (!toast.isActive("create-post-failure")) {
+                    toast({
+                        id: "create-post-failure",
+                        title: "Post Was Not Created Successfully",
+                        status: "error",
+                        duration: 3000,
+                        isClosable: true,
+                    });
+                }
             });
     };
 
@@ -295,7 +304,7 @@ const CreatePost: FC = () => {
                 w={["full", "auto"]}
                 onClick={handleSubmit}
                 isLoading={loading}
-                isDisabled={!title || !subtitle || !type || categories.length < 1}
+                isDisabled={!title || !subtitle || !type || loading || categories.length < 1}
             >
                 Create Post
             </Button>
