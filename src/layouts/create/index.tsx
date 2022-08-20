@@ -147,7 +147,7 @@ const CreatePost: FC = () => {
         }
     }, [auth]);
 
-    return !auth.isLoading && !auth.isAuthenticated ? (
+    return (
         <Container maxW={"7xl"} pb={8}>
             <Heading>Create a Post</Heading>
             <Box
@@ -316,10 +316,6 @@ const CreatePost: FC = () => {
                 Create Post
             </Button>
         </Container>
-    ) : (
-        <Center h={"100vh"} w={"100vw"}>
-            <Text>No Account was found, automatically </Text>
-        </Center>
     );
 };
 

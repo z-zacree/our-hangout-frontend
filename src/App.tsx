@@ -12,6 +12,7 @@ import {
     AccountPage,
     Register,
     Create,
+    Bookmarks,
 } from "./layouts";
 import { RouteNames } from "./utils/routes";
 
@@ -21,11 +22,12 @@ export default () => (
             <Route path="*" element={<NotFound />} />
             <Route element={<Navbar />}>
                 <Route path={RouteNames.about} element={<About />} />
+                <Route path={RouteNames.bookmarks} element={<Bookmarks />} />
                 <Route path={RouteNames.categories} element={<Categories />} />
                 <Route path={RouteNames.category} element={<Category />} />
+                <Route path={RouteNames.create} element={<Create />} />
                 <Route path={RouteNames.home} element={<Home />} />
                 <Route path={RouteNames.post} element={<Post />} />
-                <Route path={RouteNames.create} element={<Create />} />
             </Route>
             <Route path={RouteNames.login} element={<Login />} />
             <Route path={RouteNames.register} element={<Register />} />

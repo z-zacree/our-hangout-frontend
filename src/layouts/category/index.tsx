@@ -4,7 +4,7 @@ import { Post, Sort } from "@/models";
 import { Stack } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import { useParams } from "react-router-dom";
-import Layout from "./layout";
+import CategoryLayout from "./layout";
 
 const Category: FC = () => {
     window.scroll(0, 0);
@@ -25,14 +25,14 @@ const Category: FC = () => {
     };
 
     return (
-        <Layout sort={sort} setSort={setSort}>
+        <CategoryLayout sort={sort} setSort={setSort}>
             <Stack gap={1}>
                 {categoryPosts?.posts
                     ?.sort(sortPosts)
                     .map((post) => <PostCard post={post} key={post.id} />) ??
                     [...Array(10).keys()].map((number) => <SkeletonCard key={number} />)}
             </Stack>
-        </Layout>
+        </CategoryLayout>
     );
 };
 

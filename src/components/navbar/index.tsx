@@ -179,7 +179,7 @@ const Navbar: FC = () => {
                                     </MenuItem>
                                     <MenuDivider />
                                     <MenuItem
-                                        color="red.300"
+                                        color={useColorModeValue("red.500", "red.300")}
                                         icon={<IoExit />}
                                         onClick={handleLogout}
                                     >

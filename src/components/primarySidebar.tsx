@@ -1,5 +1,5 @@
 import { Button, Icon, Stack } from "@chakra-ui/react";
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { BiBookmarks, BiCategory, BiHomeAlt, BiInfoCircle } from "react-icons/bi";
 import { AuthContext } from "@/utils/context/utils";
 import { IconType } from "react-icons";
@@ -40,7 +40,7 @@ const links: NavlinkProps[] = [
     },
 ];
 
-export default () => {
+const PrimarySidebar: FC = () => {
     const navigate = useNavigate();
     const { auth } = useContext(AuthContext);
     return (
@@ -78,3 +78,5 @@ export default () => {
         </Stack>
     );
 };
+
+export default PrimarySidebar;

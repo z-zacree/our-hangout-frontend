@@ -1,15 +1,15 @@
-import { PrimarySidebar } from "@/components";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { FC, PropsWithChildren } from "react";
+import { PrimarySidebar } from "../../../components";
 
-const HomeLayout: FC<PropsWithChildren> = ({ children }) => {
+const BookmarksLayout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <Grid
             maxW="7xl"
             h="100%"
             templateColumns={{
                 base: "2fr",
-                md: "240px 2fr",
+                lg: "240px 2fr",
             }}
             gap={4}
             p={4}
@@ -19,7 +19,7 @@ const HomeLayout: FC<PropsWithChildren> = ({ children }) => {
                 position="sticky"
                 alignSelf="flex-start"
                 top={4}
-                display={{ base: "none", md: "block" }}
+                display={{ base: "none", lg: "block" }}
             >
                 <PrimarySidebar />
             </GridItem>
@@ -27,4 +27,5 @@ const HomeLayout: FC<PropsWithChildren> = ({ children }) => {
         </Grid>
     );
 };
-export default HomeLayout;
+
+export default BookmarksLayout;

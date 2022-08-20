@@ -10,14 +10,14 @@ import {
 } from "@chakra-ui/react";
 import { Dispatch, FC, PropsWithChildren, SetStateAction, useState } from "react";
 import Header from "./header";
-import PrimarySideBar from "@/components/primarySidebar";
+import { PrimarySidebar } from "@/components";
 
 interface LayoutProps extends PropsWithChildren {
     sort: Sort;
     setSort: Dispatch<SetStateAction<Sort>>;
 }
 
-const Layout: FC<LayoutProps> = ({ sort, setSort, children }) => {
+const CategoryLayout: FC<LayoutProps> = ({ sort, setSort, children }) => {
     const [open, setOpen] = useState(false);
 
     return (
@@ -38,7 +38,7 @@ const Layout: FC<LayoutProps> = ({ sort, setSort, children }) => {
                 top={4}
                 display={{ base: "none", md: "block" }}
             >
-                <PrimarySideBar />
+                <PrimarySidebar />
             </GridItem>
             <GridItem>
                 <Header open={open} setOpen={setOpen} />
@@ -91,4 +91,4 @@ const Layout: FC<LayoutProps> = ({ sort, setSort, children }) => {
     );
 };
 
-export default Layout;
+export default CategoryLayout;

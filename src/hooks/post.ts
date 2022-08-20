@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import axios from "axios";
-import { Post, CategoryPosts } from "@/models";
+import { Post, CategoryPosts, Category } from "@/models";
 
 const getfetcher = (url: string) =>
     axios.get(`http://localhost:8000/api/${url}`).then(({ data }) => data);
@@ -39,7 +39,23 @@ export function useGetCategories() {
     const { data, error } = useSWR(`categories`, getfetcher);
 
     return {
-        categories: data as string[],
+        categories: data as Category[],
+        isLoading: !error && !data,
+        isError: error,
+    };
+}
+
+export function useGetBookmarks(token: string) {
+    const authFetcher = (url: string) =>
+        axios
+            .get(`http://localhost:8000/api/${url}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then(({ data }) => data);
+    const { data, error } = useSWR(`bookmarks`, authFetcher);
+
+    return {
+        posts: data as Post[],
         isLoading: !error && !data,
         isError: error,
     };
