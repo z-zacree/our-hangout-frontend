@@ -17,6 +17,9 @@ import CategoriesLayout from "./layout";
 const Categories: FC = () => {
     const navigate = useNavigate();
     const { categories } = useGetCategories();
+
+    const cardBG = useColorModeValue("white", "gray.700");
+    const secondaryTextColor = useColorModeValue("gray.600", "gray.400");
     return (
         <CategoriesLayout>
             <Container maxW={"7xl"}>
@@ -32,7 +35,7 @@ const Categories: FC = () => {
                                     boxShadow={"md"}
                                     borderBottom={"4px solid"}
                                     borderColor={category.color}
-                                    bg={useColorModeValue("white", "gray.700")}
+                                    bg={cardBG}
                                     transition={"0.2s ease"}
                                     _hover={{
                                         boxShadow: "lg",
@@ -46,7 +49,11 @@ const Categories: FC = () => {
                                         {category.name}
                                     </Text>
                                     <Text noOfLines={2}>{category.description}</Text>
-                                    <Text position={"absolute"} bottom={4} color={"gray"}>
+                                    <Text
+                                        position={"absolute"}
+                                        bottom={4}
+                                        color={secondaryTextColor}
+                                    >
                                         {category.count} Posts
                                     </Text>
                                 </Box>
